@@ -3,13 +3,13 @@
 
 const gameCanvas = document.getElementById('game');
 const frog = gameCanvas.getContext('2d');
-let x = 100;
-let y = 120;
+let x = 375;
+let y = 730;
 
 function drawFrog() {
   frog.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
   frog.fillStyle = 'green';
-  frog.fillRect(x, y, 25, 25);
+  frog.fillRect(x, y, 50, 50);
 }
 //temp frog placeholder
 drawFrog();
