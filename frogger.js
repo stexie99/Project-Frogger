@@ -3,3 +3,5 @@ class Frogger{
         this.width= 250;
     }
 }
+
+const frogger = new Frogger

@@ -15,28 +15,28 @@ function drawFrog() {
 drawFrog();
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowUp') {
-    y -= 10; 
+    y -= hop; 
     drawFrog(); 
   }
 })
 //when a key is pressed, the frog is redrawn at a new location
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowDown') {
-    y += 10; 
+    y += hop; 
     drawFrog(); 
   }
 })
 
 document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowLeft') {
-      x -= 10; 
+      x -= hop; 
       drawFrog(); 
     }
 })
 
 document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight') {
-      x += 10; 
+      x += hop; 
       drawFrog(); 
     }
 })
