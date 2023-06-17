@@ -1,5 +1,4 @@
-const gameCanvas = document.getElementById('game');
-const ctx = gameCanvas.getContext('2d');
+
 // function move(){
 // function drawFrog() {
 //   ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);

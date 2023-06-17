@@ -4,44 +4,59 @@ class Frogger{
         this.y= y;
         this.width= width;
         this.height= height;
+        this.pressed= false;
     }
     move(){
         document.addEventListener('keydown', (e)=> {
             if (e.key === 'ArrowUp') {
-              this.y -= hop; 
-              this.drawFrog(); 
-              console.log('up')
+                if(this.pressed=== false){
+                    this.y -= hop; 
+                    this.drawFrog();
+                    this.pressed=true; 
+                }
             }
           })
           //when a key is pressed, the frog is redrawn at a new location
           document.addEventListener('keydown', (e)=> {
             if (e.key === 'ArrowDown') {
-              this.y += hop; 
-              this.drawFrog(); 
+                if(this.pressed=== false){
+                    this.y += hop; 
+                    this.drawFrog();
+                    this.pressed=true;}
             }
           })
           
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowLeft') {
-                this.x -= hop; 
-                this.drawFrog(); 
+                if(this.pressed=== false){
+                    this.x -= hop; 
+                    this.drawFrog();
+                    this.pressed=true;} 
               }
           })
-          
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowRight') {
-                this.x += hop; 
-                this.drawFrog(); 
+                if(this.pressed=== false){
+                    this.x += hop; 
+                    this.drawFrog();
+                    this.pressed=true;
+                } 
               }
+          })
+          document.addEventListener('keyup', (e)=>{
+                this.pressed = false;
           })
     }
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
         //ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
         ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height); 
+        // ctx.fillRect(this.x, this.y, this.width, this.height); 
+        ctx.drawImage(frog, 0, 16, 56, 56, this.x, this.y, this.width, this.height )
     }
 }
+const frog = new Image()
+frog.src='assets/sprite.png'
 
-const frogger = new Frogger(375, 730, 50, 50)
+const frogger = new Frogger(375, 700, 50, 50)
 // frogger.drawFrog()
