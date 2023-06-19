@@ -19,7 +19,8 @@ class Frogger{
           //when a key is pressed, the frog is redrawn at a new location
           document.addEventListener('keydown', (e)=> {
             if (e.key === 'ArrowDown') {
-                if(this.pressed=== false){
+                // keeps frog from going out of the canvas
+                if(this.pressed=== false && this.y< gameCanvas.height-this.height){
                     this.y += hop; 
                     this.drawFrog();
                     this.pressed=true;}
@@ -28,7 +29,7 @@ class Frogger{
           
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowLeft') {
-                if(this.pressed=== false){
+                if(this.pressed=== false && this.x > 0){
                     this.x -= hop; 
                     this.drawFrog();
                     this.pressed=true;} 
@@ -36,7 +37,7 @@ class Frogger{
           })
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowRight') {
-                if(this.pressed=== false){
+                if(this.pressed=== false && this.x < gameCanvas.width-this.width){
                     this.x += hop; 
                     this.drawFrog();
                     this.pressed=true;
@@ -45,13 +46,14 @@ class Frogger{
           })
           document.addEventListener('keyup', (e)=>{
                 this.pressed = false;
+
           })
     }
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
         //ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-        ctx.fillStyle = 'green';
         // ctx.fillRect(this.x, this.y, this.width, this.height); 
+        ctx.fillStyle = 'green';
         ctx.drawImage(frog, 0, 16, 56, 56, this.x, this.y, this.width, this.height )
     }
 }
