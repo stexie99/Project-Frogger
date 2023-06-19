@@ -69,6 +69,11 @@ class Log{
             }
         }
     }
+    hit(){
+        if(this.x==frogger.x){
+            console.log('hit')
+        }
+    }
 }
 const logArray=[]
 function createLog(){
@@ -81,12 +86,19 @@ function drawLog(){
         logArray[i].update()
     }
 }
+function callHit() {
+    for (let i = 0; i < logArray.length; i++) {
+      logArray[i].hit();
+    }
+  }
 function animate() {
-    ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-    frogger.drawFrog();
-    drawObstacle();
-    drawLog();
-    requestAnimationFrame(animate);
-    frogger.move();
+    ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+    frogger.drawFrog()
+    drawObstacle()
+    drawLog()
+    callHit()
+    frogger.move()
+    requestAnimationFrame(animate)
+    
 }
 animate();
