@@ -7,7 +7,12 @@ let time = 30
 const gameCanvas = document.getElementById('game');
 const ctx = gameCanvas.getContext('2d');
 function start(){}
-
+function win(){
+    if(frogger.y <=0){
+        frogger.newLife()
+        score+=1
+    }
+}
 //declare global variables
 
 class Frogger{
@@ -114,6 +119,7 @@ class Obstacle{
             // const deathX= frogger.x
             // const deathY= frogger.y
             console.log('hit')
+            ctx.drawImage(dead, 300, 320, 50, 50, frogger.x, frogger.y, frogger.width, frogger.height)
             frogger.newLife()
             lives -=1
             console.log(lives)
@@ -159,11 +165,13 @@ class Log{
     }
     draw(){
         const b = ctx.fillStyle
-        ctx.fillStyle='blue'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle='blue'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(log, 385, 256, 200, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle = b
     }
     update(){
+        this.land()
         this.x += this.speed
         if(this.speed>0){
             if(this.x>gameCanvas.width+this.width){
@@ -174,18 +182,23 @@ class Log{
             }
         }
     }
-    hit(){
-        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y-this.height<=frogger.y&& frogger.y<=this.y){
-            console.log('hit')
-            lives -=1
-            console.log(lives)
+    land(){
+        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
+            console.log('land')
+            frogger.x+=this.speed
+            console.log(this.x)
         }
     }
 }
+const log = new Image()
+log.src='assets/sprite.png'
+
 const logArray=[]
 function createLog(){
     logArray.push(new Log(0, 250, 2, 200, 75))
-
+    logArray.push(new Log(400, 250, 2, 200, 75))
+    logArray.push(new Log(0, 150, -2.5, 200, 75))
+    logArray.push(new Log(400, 150, -2.5, 200, 75))
 }
 createLog()
 function drawLog(){
@@ -199,11 +212,20 @@ function drawLog(){
 //       obstacleArray[i].hit()
 //     }
 //   }
+function scoreBoard(){
+    ctx.fillStyle='black'
+    ctx.font='15px Times New Roman'
+    ctx.strokeText('score', 375,15)
+    ctx.font='60px Times New Roman'
+    ctx.fillText(score, 375, 65)
+}
 function animate() {
     ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
-    frogger.drawFrog()
+    win()
     drawObstacle()
     drawLog()
+    frogger.drawFrog()
+    scoreBoard()
     // hit()
     frogger.move()
     requestAnimationFrame(animate)
