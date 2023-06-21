@@ -92,6 +92,7 @@ class Obstacle{
     }
     update(){
         this.x += this.speed
+        this.hit()
         if(this.speed>0){
             if(this.x>gameCanvas.width+this.width){
             this.x=0-this.width
@@ -103,7 +104,8 @@ class Obstacle{
     }
     //moves obstacles back on the canvas from the opposite side
     hit(){
-        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y-this.height<=frogger.y&& frogger.y<=this.y){
+        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
+            // ctx.drawImage(frog, 3, 30, 50, 50, 375, 700, 50, 50)
             console.log('hit')
         }
     }
@@ -123,11 +125,16 @@ function drawObstacle(){
     for(let i=0; i<obstacleArray.length; i++){
         obstacleArray[i].draw()
         obstacleArray[i].update()
+        // if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y-this.height<=frogger.y&& frogger.y<=this.y){
+        //     ctx.drawImage(dead, 300, 320, 50, 50, 375, 700, 50, 50)
+    
+        // }
     }
 }
 const car= new Image()
 car.src='assets/sprite.png'
-
+const dead = new Image()
+dead.src='assets/sprite.png'
 
 
 
@@ -174,17 +181,17 @@ function drawLog(){
         logArray[i].update()
     }
 }
-function hit() {
-    for (let i = 0; i < obstacleArray.length; i++) {
-      obstacleArray[i].hit()
-    }
-  }
+// function hit() {
+//     for (let i = 0; i < obstacleArray.length; i++) {
+//       obstacleArray[i].hit()
+//     }
+//   }
 function animate() {
     ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     frogger.drawFrog()
     drawObstacle()
     drawLog()
-    hit()
+    // hit()
     frogger.move()
     requestAnimationFrame(animate)
     
