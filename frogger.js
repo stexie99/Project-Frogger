@@ -102,15 +102,21 @@ class Obstacle{
         }
     }
     //moves obstacles back on the canvas from the opposite side
+    hit(){
+        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y-this.height<=frogger.y&& frogger.y<=this.y){
+            console.log('hit')
+        }
+    }
+    
 }
 const obstacleArray=[]
 function createObstacle(){
-    obstacleArray.push(new Obstacle(0, 500, 1, 200, 50))
-    obstacleArray.push(new Obstacle(500,500, 1, 200, 50))
-    obstacleArray.push(new Obstacle(0, 450, -1, 200, 50 ))
-    obstacleArray.push(new Obstacle(500, 450, -1, 200, 50 ))
-    obstacleArray.push(new Obstacle(0, 400, 2.5, 200, 50 ))
-    obstacleArray.push(new Obstacle(500, 400, 2.5, 200, 50 ))
+    obstacleArray.push(new Obstacle(0, 575, 1, 200, 75))
+    obstacleArray.push(new Obstacle(500,575, 1, 200, 75))
+    obstacleArray.push(new Obstacle(0, 475, -1, 200, 75 ))
+    obstacleArray.push(new Obstacle(500, 475, -1, 200, 75))
+    obstacleArray.push(new Obstacle(0, 365, 2.5, 200, 75))
+    obstacleArray.push(new Obstacle(500, 365, 2.5, 200, 75))
 }
 createObstacle()
 function drawObstacle(){
@@ -152,14 +158,14 @@ class Log{
         }
     }
     hit(){
-        if(this.x==frogger.x){
+        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y-this.height<=frogger.y&& frogger.y<=this.y){
             console.log('hit')
         }
     }
 }
 const logArray=[]
 function createLog(){
-    logArray.push(new Log(0, 300, 2, 200, 50))
+    logArray.push(new Log(0, 250, 2, 200, 75))
 }
 createLog()
 function drawLog(){
@@ -168,9 +174,9 @@ function drawLog(){
         logArray[i].update()
     }
 }
-function callHit() {
-    for (let i = 0; i < logArray.length; i++) {
-      logArray[i].hit()
+function hit() {
+    for (let i = 0; i < obstacleArray.length; i++) {
+      obstacleArray[i].hit()
     }
   }
 function animate() {
@@ -178,7 +184,7 @@ function animate() {
     frogger.drawFrog()
     drawObstacle()
     drawLog()
-    callHit()
+    hit()
     frogger.move()
     requestAnimationFrame(animate)
     
