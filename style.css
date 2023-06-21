@@ -3,12 +3,16 @@
     border: 1px solid black;
     height: 800px;
     width: 800px;
-    background-color: aqua;
+    background-size:cover;
+    background-image: url('assets/water.png');
     
+    /* background-color: aqua; */
 }
 #game{
     position:absolute;
     border: 1px solid blue;
+    background-size:cover;
+    background-image: url('assets/background.png')
 }
 body{
     display:flex;

@@ -66,9 +66,9 @@ class Frogger{
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
         //ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-        // ctx.fillRect(this.x, this.y, this.width, this.height); 
         ctx.fillStyle = 'green';
-        ctx.drawImage(frog, 0, 16, 56, 56, this.x, this.y, this.width, this.height )
+        ctx.fillRect(this.x, this.y, this.width, this.height); 
+        // ctx.drawImage(frog, 0, 16, 56, 56, this.x, this.y, this.width, this.height )
     }
 }
 
@@ -88,6 +88,7 @@ class Obstacle{
     draw(){
         ctx.fillStyle='red'
         ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.drawImage(car, 8, 485, 140, 70, this.x, this.y, this.width, this.height)
     }
     update(){
         this.x += this.speed
@@ -118,7 +119,13 @@ function drawObstacle(){
         obstacleArray[i].update()
     }
 }
-// console.log(obstacleArray)
+const car= new Image()
+car.src='assets/sprite.png'
+
+
+
+
+
 class Log{
     constructor(x, y, speed, width, height){
         this.x=x;
