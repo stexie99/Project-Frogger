@@ -22,11 +22,8 @@ class Frogger{
         document.addEventListener('keydown', (e)=> {
             if (e.key === 'ArrowUp') {
                 if(this.pressed=== false){
-                    this.y -= hop; 
-                    this.drawFrog();
-                    this.pressed=true;
-                    console.log(this.x)
-                    console.log(logArray[0].x) 
+                    this.y -= hop
+                    this.pressed=true
                 }
             }
           })
@@ -35,40 +32,41 @@ class Frogger{
             if (e.key === 'ArrowDown') {
                 // keeps frog from going out of the canvas
                 if(this.pressed=== false && this.y< gameCanvas.height-this.height){
-                    this.y += hop; 
-                    this.drawFrog();
-                    this.pressed=true;}
+                    this.y += hop 
+                    this.pressed=true
+                }
             }
           })
           
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowLeft') {
                 if(this.pressed=== false && this.x > 0){
-                    this.x -= hop; 
-                    this.drawFrog();
-                    this.pressed=true;} 
+                    this.x -= hop
+                    this.pressed=true
+                } 
               }
           })
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowRight') {
                 if(this.pressed=== false && this.x < gameCanvas.width-this.width){
-                    this.x += hop; 
-                    this.drawFrog();
-                    this.pressed=true;
+                    this.x += hop
+                    this.pressed=true
                 } 
               }
           })
           document.addEventListener('keyup', (e)=>{
-                this.pressed = false;
+                this.pressed = false
 
           })
     }
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
         //ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height); 
-        // ctx.drawImage(frog, 0, 16, 56, 56, this.x, this.y, this.width, this.height )
+        const g = ctx.fillStyle
+        // ctx.fillStyle = 'green'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(frog, 3, 30, 50, 50, this.x, this.y, this.width, this.height )
+        ctx.fillStyle= g
     }
 }
 
@@ -78,17 +76,19 @@ const frogger = new Frogger(375, 700, 50, 50)
 
 class Obstacle{
     constructor(x, y, speed, width, height){
-        this.x=x;
-        this.y=y;
-        this.speed = speed;
-        this.width= width;
-        this.height = height;
+        this.x=x
+        this.y=y
+        this.speed = speed
+        this.width= width
+        this.height = height
 
     }
     draw(){
-        ctx.fillStyle='red'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
-        // ctx.drawImage(car, 8, 485, 140, 70, this.x, this.y, this.width, this.height)
+        const r = ctx.fillStyle
+        // ctx.fillStyle='red'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(car, 8, 485, 140, 70, this.x, this.y, this.width, this.height)
+        ctx.fillStyle=r
     }
     update(){
         this.x += this.speed
@@ -128,15 +128,17 @@ car.src='assets/sprite.png'
 
 class Log{
     constructor(x, y, speed, width, height){
-        this.x=x;
-        this.y=y;
-        this.speed = speed;
-        this.width= width;
-        this.height = height;
+        this.x=x
+        this.y=y
+        this.speed = speed
+        this.width= width
+        this.height = height
     }
     draw(){
+        const b = ctx.fillStyle
         ctx.fillStyle='blue'
         ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillStyle = b
     }
     update(){
         this.x += this.speed
@@ -168,7 +170,7 @@ function drawLog(){
 }
 function callHit() {
     for (let i = 0; i < logArray.length; i++) {
-      logArray[i].hit();
+      logArray[i].hit()
     }
   }
 function animate() {
@@ -181,4 +183,4 @@ function animate() {
     requestAnimationFrame(animate)
     
 }
-animate();
+animate()
