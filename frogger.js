@@ -12,11 +12,13 @@ function start(){}
 
 class Frogger{
     constructor(x, y, width, height){
-        this.x= x;
-        this.y= y;
-        this.width= width;
-        this.height= height;
-        this.pressed= false;
+        this.startX=x
+        this.startY=y
+        this.x= x
+        this.y= y
+        this.width= width
+        this.height= height
+        this.pressed= false
     }
     move(){
         document.addEventListener('keydown', (e)=> {
@@ -68,6 +70,10 @@ class Frogger{
         ctx.drawImage(frog, 3, 30, 50, 50, this.x, this.y, this.width, this.height )
         ctx.fillStyle= g
     }
+    newLife(){
+        this.x=this.startX
+        this.y=this.startY
+    }
 }
 
 const frog = new Image()
@@ -105,8 +111,12 @@ class Obstacle{
     //moves obstacles back on the canvas from the opposite side
     hit(){
         if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
-            // ctx.drawImage(frog, 3, 30, 50, 50, 375, 700, 50, 50)
+            // const deathX= frogger.x
+            // const deathY= frogger.y
             console.log('hit')
+            frogger.newLife()
+            lives -=1
+            console.log(lives)
         }
     }
     
@@ -167,12 +177,15 @@ class Log{
     hit(){
         if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y-this.height<=frogger.y&& frogger.y<=this.y){
             console.log('hit')
+            lives -=1
+            console.log(lives)
         }
     }
 }
 const logArray=[]
 function createLog(){
     logArray.push(new Log(0, 250, 2, 200, 75))
+
 }
 createLog()
 function drawLog(){
