@@ -6,11 +6,11 @@ let time = 30
 let onLog= false
 const gameCanvas = document.getElementById('game');
 const ctx = gameCanvas.getContext('2d');
+const startButton = document.getElementById('startButton');
+startButton.addEventListener('click', startGame);
 //declare global variables
 
 
-
-function start(){}
 function win(){
     if(frogger.y <=0){
         frogger.newLife()
@@ -31,16 +31,12 @@ function water(){
 }
 //when in water and not on log, player loses a life and resets
 
-function newGame(){
-    
-}
 function logMousePosition(event) {
     const x = event.clientX;
     const y = event.clientY;
     console.log(`Mouse position: x=${x}, y=${y}`);
   }
-  
-//   // Add event listener to the document for the 'click' event
+
   document.addEventListener('click', logMousePosition);
   
 
@@ -119,6 +115,16 @@ const frog = new Image()
 frog.src='assets/sprite.png'
 const frogger = new Frogger(375, 700, 50, 50)
 
+function startGame() {
+    createLog()
+    createObstacle()
+    animate()
+    console.log('Game started!');
+    startButton.style.display = 'none';
+}
+    
+
+
 class Obstacle{
     constructor(x, y, speed, width, height){
         this.x=x
@@ -162,14 +168,14 @@ class Obstacle{
 }
 const obstacleArray=[]
 function createObstacle(){
-    obstacleArray.push(new Obstacle(0, 560, speed, 200, 100))
-    obstacleArray.push(new Obstacle(500,560, speed, 200, 100))
-    obstacleArray.push(new Obstacle(0, 460, speed*-1, 200, 100))
-    obstacleArray.push(new Obstacle(500, 460, speed*-1, 200, 100))
-    obstacleArray.push(new Obstacle(0, 350, speed*1.5, 200, 100))
-    obstacleArray.push(new Obstacle(500, 350, speed*1.5, 200, 100))
+    obstacleArray.push(new Obstacle(0, 560, speed, 200, 80))
+    obstacleArray.push(new Obstacle(500,560, speed, 200, 80))
+    obstacleArray.push(new Obstacle(0, 460, speed*-1, 200, 80))
+    obstacleArray.push(new Obstacle(500, 460, speed*-1, 200, 80))
+    obstacleArray.push(new Obstacle(0, 350, speed*1.5, 200, 80))
+    obstacleArray.push(new Obstacle(500, 350, speed*1.5, 200, 80))
 }
-createObstacle()
+
 function drawObstacle(){
     for(let i=0; i<obstacleArray.length; i++){
         obstacleArray[i].draw()
@@ -223,12 +229,12 @@ log.src='assets/sprite.png'
 
 const logArray=[]
 function createLog(){
-    logArray.push(new Log(0, 240, speed, 200, 98))
-    logArray.push(new Log(400, 240, speed, 200, 98))
-    logArray.push(new Log(0, 135, -1.5*speed, 200, 105))
-    logArray.push(new Log(400, 135, -1.5*speed, 200, 105))
+    logArray.push(new Log(0, 240, speed, 250, 98))
+    logArray.push(new Log(400, 240, speed, 250, 98))
+    logArray.push(new Log(0, 135, -1.5*speed, 250, 105))
+    logArray.push(new Log(400, 135, -1.5*speed, 250, 105))
 }
-createLog()
+
 function drawLog(){
     for(let i=0; i<logArray.length; i++){
         logArray[i].draw()
@@ -242,11 +248,11 @@ function drawLog(){
 //   }
 function scoreBoard(){
     ctx.fillStyle='black'
-    ctx.font='15px Times New Roman'
+    ctx.font='bold 15px Times New Roman'
     ctx.fillText('score 5 points to win!', 550, 100)
     ctx.fillText('score',375, 15)
     ctx.fillText('Lives', 25, 15)
-    ctx.font='60px Times New Roman'
+    ctx.font='bold 60px Times New Roman'
     ctx.fillText(score, 375, 65)
     ctx.fillText(lives, 25, 65)
 }
@@ -264,16 +270,15 @@ function animate() {
     }else if(lives==0) {
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
         ctx.fillStyle='orange'
-        ctx.font='50px Times New Roman'
-        ctx.strokeText('GAME OVER', 230, 190)
-        ctx.strokeText('You scored '+ score +' points', 180, 300)
+        ctx.font='bold 50px Times New Roman'
+        ctx.fillText('GAME OVER', 230, 190)
+        ctx.fillText('You scored '+ score +' points', 180, 300)
     }else if(score==5){
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
         ctx.fillStyle='orange'
-        ctx.font='50px Times New Roman'
-        ctx.strokeText('GAME OVER', 230, 190)
-        ctx.strokeText('YOU WIN', 250, 300)
+        ctx.font='bold 50px Times New Roman'
+        ctx.fillText('GAME OVER', 230, 190)
+        ctx.fillText('YOU WIN', 250, 300)
     } 
     
 }
-animate()
