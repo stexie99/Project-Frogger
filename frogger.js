@@ -1,5 +1,5 @@
 let score = 0
-let lives= 3
+let lives= 5
 let speed = 1
 let hop = 50 
 let time = 30
@@ -15,14 +15,24 @@ function win(){
     if(frogger.y <=0){
         frogger.newLife()
         score+=1
-        console.log(lives)
+        speed = speed*1.05
+        console.log(speed)
+        // createObstacle()
+        // createLog()
     }
 }
+// when player makes it past the top of the canvas it scores
+
 function water(){
     if(frogger.y>135&&frogger.y<340&&onLog===false){
         lives-=1
         frogger.newLife()
     }
+}
+//when in water and not on log, player loses a life and resets
+
+function newGame(){
+    
 }
 function logMousePosition(event) {
     const x = event.clientX;
@@ -30,7 +40,7 @@ function logMousePosition(event) {
     console.log(`Mouse position: x=${x}, y=${y}`);
   }
   
-  // Add event listener to the document for the 'click' event
+//   // Add event listener to the document for the 'click' event
   document.addEventListener('click', logMousePosition);
   
 
@@ -120,9 +130,9 @@ class Obstacle{
     }
     draw(){
         const r = ctx.fillStyle
-        ctx.fillStyle='red'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.drawImage(car, 8, 485, 140, 70, this.x, this.y, this.width, this.height)
+        // ctx.fillStyle='red'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(car, 12, 482, 130, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle=r
     }
     update(){
@@ -152,12 +162,12 @@ class Obstacle{
 }
 const obstacleArray=[]
 function createObstacle(){
-    obstacleArray.push(new Obstacle(0, 575, 1, 200, 75))
-    obstacleArray.push(new Obstacle(500,575, 1, 200, 75))
-    obstacleArray.push(new Obstacle(0, 475, -1, 200, 75 ))
-    obstacleArray.push(new Obstacle(500, 475, -1, 200, 75))
-    obstacleArray.push(new Obstacle(0, 365, 2.5, 200, 75))
-    obstacleArray.push(new Obstacle(500, 365, 2.5, 200, 75))
+    obstacleArray.push(new Obstacle(0, 560, speed, 200, 100))
+    obstacleArray.push(new Obstacle(500,560, speed, 200, 100))
+    obstacleArray.push(new Obstacle(0, 460, speed*-1, 200, 100))
+    obstacleArray.push(new Obstacle(500, 460, speed*-1, 200, 100))
+    obstacleArray.push(new Obstacle(0, 350, speed*1.5, 200, 100))
+    obstacleArray.push(new Obstacle(500, 350, speed*1.5, 200, 100))
 }
 createObstacle()
 function drawObstacle(){
@@ -184,8 +194,8 @@ class Log{
     }
     draw(){
         const b = ctx.fillStyle
-        ctx.fillStyle='blue'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle='blue'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(log, 385, 256, 190, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle = b
     }
@@ -213,10 +223,10 @@ log.src='assets/sprite.png'
 
 const logArray=[]
 function createLog(){
-    logArray.push(new Log(0, 240, 2, 200, 98))
-    logArray.push(new Log(400, 240, 2, 200, 98))
-    logArray.push(new Log(0, 135, -2.5, 200, 105))
-    logArray.push(new Log(400, 135, -2.5, 200, 105))
+    logArray.push(new Log(0, 240, speed, 200, 98))
+    logArray.push(new Log(400, 240, speed, 200, 98))
+    logArray.push(new Log(0, 135, -1.5*speed, 200, 105))
+    logArray.push(new Log(400, 135, -1.5*speed, 200, 105))
 }
 createLog()
 function drawLog(){
@@ -233,19 +243,31 @@ function drawLog(){
 function scoreBoard(){
     ctx.fillStyle='black'
     ctx.font='15px Times New Roman'
-    ctx.strokeText('score', 375,15)
+    ctx.strokeText('score 5 points to win!', 550, 100)
+    ctx.fillText('score',375, 15)
+    ctx.fillText('Lives', 25, 15)
     ctx.font='60px Times New Roman'
     ctx.fillText(score, 375, 65)
+    ctx.fillText(lives, 25, 65)
 }
 function animate() {
-    ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
-    win()
-    drawObstacle()
-    drawLog()
-    frogger.drawFrog()
-    water()
-    scoreBoard()
-    frogger.move()
-    requestAnimationFrame(animate)
+    if(lives>0){
+        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+        win()
+        drawObstacle()
+        drawLog()
+        frogger.drawFrog()
+        water()
+        scoreBoard()
+        frogger.move()
+        requestAnimationFrame(animate)
+    }else{
+        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+        ctx.fillStyle='orange'
+        ctx.font='50px Times New Roman'
+        ctx.strokeText('GAME OVER', 230, 190)
+        ctx.strokeText('You scored '+ score +' points', 180, 300)
+    }
+    
 }
 animate()
