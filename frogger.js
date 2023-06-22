@@ -243,7 +243,7 @@ function drawLog(){
 function scoreBoard(){
     ctx.fillStyle='black'
     ctx.font='15px Times New Roman'
-    ctx.strokeText('score 5 points to win!', 550, 100)
+    ctx.fillText('score 5 points to win!', 550, 100)
     ctx.fillText('score',375, 15)
     ctx.fillText('Lives', 25, 15)
     ctx.font='60px Times New Roman'
@@ -251,7 +251,7 @@ function scoreBoard(){
     ctx.fillText(lives, 25, 65)
 }
 function animate() {
-    if(lives>0){
+    if(lives>0&&score<5){
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
         win()
         drawObstacle()
@@ -261,13 +261,19 @@ function animate() {
         scoreBoard()
         frogger.move()
         requestAnimationFrame(animate)
-    }else{
+    }else if(lives==0) {
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
         ctx.fillStyle='orange'
         ctx.font='50px Times New Roman'
         ctx.strokeText('GAME OVER', 230, 190)
         ctx.strokeText('You scored '+ score +' points', 180, 300)
-    }
+    }else if(score==5){
+        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+        ctx.fillStyle='orange'
+        ctx.font='50px Times New Roman'
+        ctx.strokeText('GAME OVER', 230, 190)
+        ctx.strokeText('YOU WIN', 250, 300)
+    } 
     
 }
 animate()
