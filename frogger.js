@@ -257,7 +257,7 @@ function scoreBoard(){
     ctx.fillText(lives, 25, 65)
 }
 function animate() {
-    if(lives>0&&score<5){
+    if(lives>=0&&score<5){
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
         win()
         drawObstacle()
@@ -267,7 +267,7 @@ function animate() {
         scoreBoard()
         frogger.move()
         requestAnimationFrame(animate)
-    }else if(lives==0) {
+    }else if(lives<=0) {
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
         ctx.fillStyle='orange'
         ctx.font='bold 50px Times New Roman'
