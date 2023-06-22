@@ -2,18 +2,38 @@ let score = 0
 let lives= 3
 let speed = 1
 let hop = 50 
-direction = null
 let time = 30
+let onLog= false
 const gameCanvas = document.getElementById('game');
 const ctx = gameCanvas.getContext('2d');
+//declare global variables
+
+
+
 function start(){}
 function win(){
     if(frogger.y <=0){
         frogger.newLife()
         score+=1
+        console.log(lives)
     }
 }
-//declare global variables
+function water(){
+    if(frogger.y>135&&frogger.y<340&&onLog===false){
+        lives-=1
+        frogger.newLife()
+    }
+}
+function logMousePosition(event) {
+    const x = event.clientX;
+    const y = event.clientY;
+    console.log(`Mouse position: x=${x}, y=${y}`);
+  }
+  
+  // Add event listener to the document for the 'click' event
+  document.addEventListener('click', logMousePosition);
+  
+
 
 class Frogger{
     constructor(x, y, width, height){
@@ -31,6 +51,7 @@ class Frogger{
                 if(this.pressed=== false){
                     this.y -= hop
                     this.pressed=true
+                    onLog=false
                 }
             }
           })
@@ -41,6 +62,7 @@ class Frogger{
                 if(this.pressed=== false && this.y< gameCanvas.height-this.height){
                     this.y += hop 
                     this.pressed=true
+                    onLog=false
                 }
             }
           })
@@ -50,6 +72,7 @@ class Frogger{
                 if(this.pressed=== false && this.x > 0){
                     this.x -= hop
                     this.pressed=true
+                    onLog=false
                 } 
               }
           })
@@ -58,6 +81,7 @@ class Frogger{
                 if(this.pressed=== false && this.x < gameCanvas.width-this.width){
                     this.x += hop
                     this.pressed=true
+                    onLog=false
                 } 
               }
           })
@@ -72,7 +96,7 @@ class Frogger{
         const g = ctx.fillStyle
         // ctx.fillStyle = 'green'
         // ctx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.drawImage(frog, 3, 30, 50, 50, this.x, this.y, this.width, this.height )
+        ctx.drawImage(frog, 3, 25, 50, 45, this.x, this.y, this.width, this.height )
         ctx.fillStyle= g
     }
     newLife(){
@@ -96,8 +120,8 @@ class Obstacle{
     }
     draw(){
         const r = ctx.fillStyle
-        // ctx.fillStyle='red'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillStyle='red'
+        ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(car, 8, 485, 140, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle=r
     }
@@ -116,10 +140,9 @@ class Obstacle{
     //moves obstacles back on the canvas from the opposite side
     hit(){
         if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
-            // const deathX= frogger.x
-            // const deathY= frogger.y
-            console.log('hit')
-            ctx.drawImage(dead, 300, 320, 50, 50, frogger.x, frogger.y, frogger.width, frogger.height)
+            const deathX= frogger.x
+            const deathY= frogger.y
+            ctx.drawImage(dead, 300, 320, 50, 50, deathX, deathY, frogger.width, frogger.height)
             frogger.newLife()
             lives -=1
             console.log(lives)
@@ -141,10 +164,6 @@ function drawObstacle(){
     for(let i=0; i<obstacleArray.length; i++){
         obstacleArray[i].draw()
         obstacleArray[i].update()
-        // if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y-this.height<=frogger.y&& frogger.y<=this.y){
-        //     ctx.drawImage(dead, 300, 320, 50, 50, 375, 700, 50, 50)
-    
-        // }
     }
 }
 const car= new Image()
@@ -165,9 +184,9 @@ class Log{
     }
     draw(){
         const b = ctx.fillStyle
-        // ctx.fillStyle='blue'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.drawImage(log, 385, 256, 200, 70, this.x, this.y, this.width, this.height)
+        ctx.fillStyle='blue'
+        ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(log, 385, 256, 190, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle = b
     }
     update(){
@@ -183,10 +202,9 @@ class Log{
         }
     }
     land(){
-        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
-            console.log('land')
+        if(frogger.x>0&&frogger.x<gameCanvas.width-frogger.width&&this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
+            onLog= true
             frogger.x+=this.speed
-            console.log(this.x)
         }
     }
 }
@@ -195,10 +213,10 @@ log.src='assets/sprite.png'
 
 const logArray=[]
 function createLog(){
-    logArray.push(new Log(0, 250, 2, 200, 75))
-    logArray.push(new Log(400, 250, 2, 200, 75))
-    logArray.push(new Log(0, 150, -2.5, 200, 75))
-    logArray.push(new Log(400, 150, -2.5, 200, 75))
+    logArray.push(new Log(0, 240, 2, 200, 98))
+    logArray.push(new Log(400, 240, 2, 200, 98))
+    logArray.push(new Log(0, 135, -2.5, 200, 105))
+    logArray.push(new Log(400, 135, -2.5, 200, 105))
 }
 createLog()
 function drawLog(){
@@ -225,10 +243,9 @@ function animate() {
     drawObstacle()
     drawLog()
     frogger.drawFrog()
+    water()
     scoreBoard()
-    // hit()
     frogger.move()
     requestAnimationFrame(animate)
-    
 }
 animate()
