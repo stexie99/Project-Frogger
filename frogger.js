@@ -1,4 +1,4 @@
-let score = 0
+let score = 4
 let lives= 5
 let speed = 1
 let hop = 50 
@@ -38,7 +38,7 @@ function logMousePosition(event) {
   }
 
   document.addEventListener('click', logMousePosition);
-  
+// console log the location of my mouse click to help me determine the pixels
 
 
 class Frogger{
@@ -119,8 +119,8 @@ function startGame() {
     createLog()
     createObstacle()
     animate()
-    console.log('Game started!');
-    startButton.style.display = 'none';
+    startButton.style.display = 'none'
+    console.log('game started!')
 }
     
 
@@ -256,6 +256,23 @@ function scoreBoard(){
     ctx.fillText(score, 375, 65)
     ctx.fillText(lives, 25, 65)
 }
+function winGame(){
+    ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+    ctx.fillStyle='orange'
+    ctx.font='bold 50px Times New Roman'
+    ctx.fillText('GAME OVER', 250, 190)
+    ctx.fillText('YOU WIN', 290, 300)
+    console.log('You win')
+}
+
+function restart(){
+    let button=document.querySelector('#startButton')
+    button.innerHTML='Restart'
+    console.log('hi')
+    button.style.display = 'block'
+    button.addEventListener('click', startGame)
+}
+
 function animate() {
     if(lives>=0&&score<5){
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
@@ -274,11 +291,8 @@ function animate() {
         ctx.fillText('GAME OVER', 230, 190)
         ctx.fillText('You scored '+ score +' points', 180, 300)
     }else if(score==5){
-        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
-        ctx.fillStyle='orange'
-        ctx.font='bold 50px Times New Roman'
-        ctx.fillText('GAME OVER', 230, 190)
-        ctx.fillText('YOU WIN', 250, 300)
+        winGame()
+        restart()
     } 
     
 }
