@@ -1,4 +1,4 @@
-let score = 4
+let score = 0
 let lives= 5
 let speed = 1
 let hop = 50 
@@ -15,10 +15,12 @@ function win(){
     if(frogger.y <=0){
         frogger.newLife()
         score+=1
-        speed = speed*1.05
+        speed = speed*1.25
         console.log(speed)
-        // createObstacle()
-        // createLog()
+        logArray=[]
+        obstacleArray=[]
+        createObstacle()
+        createLog()
     }
 }
 // when player makes it past the top of the canvas it scores
@@ -116,6 +118,11 @@ frog.src='assets/sprite.png'
 const frogger = new Frogger(375, 700, 50, 50)
 
 function startGame() {
+    score= 0
+    lives=5
+    speed=1
+    obstacleArray=[]
+    logArray=[]
     createLog()
     createObstacle()
     animate()
@@ -161,12 +168,11 @@ class Obstacle{
             ctx.drawImage(dead, 300, 320, 50, 50, deathX, deathY, frogger.width, frogger.height)
             frogger.newLife()
             lives -=1
-            console.log(lives)
         }
     }
     
 }
-const obstacleArray=[]
+let obstacleArray=[]
 function createObstacle(){
     obstacleArray.push(new Obstacle(0, 560, speed, 200, 80))
     obstacleArray.push(new Obstacle(500,560, speed, 200, 80))
@@ -227,7 +233,7 @@ class Log{
 const log = new Image()
 log.src='assets/sprite.png'
 
-const logArray=[]
+let logArray=[]
 function createLog(){
     logArray.push(new Log(0, 240, speed, 250, 98))
     logArray.push(new Log(400, 240, speed, 250, 98))
@@ -262,13 +268,19 @@ function winGame(){
     ctx.font='bold 50px Times New Roman'
     ctx.fillText('GAME OVER', 250, 190)
     ctx.fillText('YOU WIN', 290, 300)
-    console.log('You win')
+    restart()
 }
-
+function lose(){
+    ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+    ctx.fillStyle='orange'
+    ctx.font='bold 50px Times New Roman'
+    ctx.fillText('GAME OVER', 250, 190)
+    ctx.fillText('You scored '+ score +' points', 180, 300)
+    restart()
+}
 function restart(){
     let button=document.querySelector('#startButton')
     button.innerHTML='Restart'
-    console.log('hi')
     button.style.display = 'block'
     button.addEventListener('click', startGame)
 }
@@ -285,14 +297,8 @@ function animate() {
         frogger.move()
         requestAnimationFrame(animate)
     }else if(lives<=0) {
-        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
-        ctx.fillStyle='orange'
-        ctx.font='bold 50px Times New Roman'
-        ctx.fillText('GAME OVER', 230, 190)
-        ctx.fillText('You scored '+ score +' points', 180, 300)
+        lose()
     }else if(score==5){
         winGame()
-        restart()
     } 
-    
 }
