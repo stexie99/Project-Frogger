@@ -18,12 +18,13 @@ function win(){
         speed = speed*1.25
         console.log(speed)
         logArray=[]
-        obstacleArray=[]
-        createObstacle()
+        carArray=[]
+        createCar()
         createLog()
     }
 }
-// when player makes it past the top of the canvas it scores
+// when player makes it past the top of the canvas they score
+//car and log arrays are cleared, and new cars and logs are drawn with faster speed 
 
 function water(){
     if(frogger.y>135&&frogger.y<340&&onLog===false){
@@ -93,17 +94,16 @@ class Frogger{
                 } 
               }
           })
-          document.addEventListener('keyup', (e)=>{
+          document.addEventListener('keyup', ()=>{
                 this.pressed = false
 
           })
     }
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
-        //ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
         const g = ctx.fillStyle
-        // ctx.fillStyle = 'green'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillStyle = 'green'
+        ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(frog, 3, 25, 50, 45, this.x, this.y, this.width, this.height )
         ctx.fillStyle= g
     }
@@ -121,10 +121,10 @@ function startGame() {
     score= 0
     lives=5
     speed=1
-    obstacleArray=[]
+    carArray=[]
     logArray=[]
     createLog()
-    createObstacle()
+    createCar()
     animate()
     startButton.style.display = 'none'
     console.log('game started!')
@@ -132,7 +132,7 @@ function startGame() {
     
 
 
-class Obstacle{
+class Car{
     constructor(x, y, speed, width, height){
         this.x=x
         this.y=y
@@ -143,8 +143,8 @@ class Obstacle{
     }
     draw(){
         const r = ctx.fillStyle
-        // ctx.fillStyle='red'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillStyle='red'
+        ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(car, 12, 482, 130, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle=r
     }
@@ -160,7 +160,7 @@ class Obstacle{
             }
         }
     }
-    //moves obstacles back on the canvas from the opposite side
+    //moves cars back on the canvas from the opposite side
     hit(){
         if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
             const deathX= frogger.x
@@ -172,20 +172,20 @@ class Obstacle{
     }
     
 }
-let obstacleArray=[]
-function createObstacle(){
-    obstacleArray.push(new Obstacle(0, 560, speed, 200, 80))
-    obstacleArray.push(new Obstacle(500,560, speed, 200, 80))
-    obstacleArray.push(new Obstacle(0, 460, speed*-1, 200, 80))
-    obstacleArray.push(new Obstacle(500, 460, speed*-1, 200, 80))
-    obstacleArray.push(new Obstacle(0, 350, speed*1.5, 200, 80))
-    obstacleArray.push(new Obstacle(500, 350, speed*1.5, 200, 80))
+let carArray=[]
+function createCar(){
+    carArray.push(new Car(0, 560, speed, 200, 100))
+    carArray.push(new Car(500,560, speed, 200, 100))
+    carArray.push(new Car(0, 460, speed*-1, 200, 100))
+    carArray.push(new Car(500, 460, speed*-1, 200, 100))
+    carArray.push(new Car(0, 360, speed*1.5, 200, 100))
+    carArray.push(new Car(500, 360, speed*1.5, 200, 100))
 }
 
-function drawObstacle(){
-    for(let i=0; i<obstacleArray.length; i++){
-        obstacleArray[i].draw()
-        obstacleArray[i].update()
+function drawCar(){
+    for(let i=0; i<carArray.length; i++){
+        carArray[i].draw()
+        carArray[i].update()
     }
 }
 const car= new Image()
@@ -206,8 +206,8 @@ class Log{
     }
     draw(){
         const b = ctx.fillStyle
-        // ctx.fillStyle='blue'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillStyle='blue'
+        ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(log, 385, 256, 190, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle = b
     }
@@ -247,11 +247,7 @@ function drawLog(){
         logArray[i].update()
     }
 }
-// function hit() {
-//     for (let i = 0; i < obstacleArray.length; i++) {
-//       obstacleArray[i].hit()
-//     }
-//   }
+
 function scoreBoard(){
     ctx.fillStyle='black'
     ctx.font='bold 15px Times New Roman'
@@ -289,7 +285,7 @@ function animate() {
     if(lives>=0&&score<5){
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
         win()
-        drawObstacle()
+        drawCar()
         drawLog()
         frogger.drawFrog()
         water()
