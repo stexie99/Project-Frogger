@@ -8,7 +8,7 @@ Features currently under the works:
 4. extra live
 
 Known bugs:
-1. frog/vehicle hit boxes, frog can stay alive when staying at the edge of the road near the water.
+1. 
 
 link to "sprite.png": https://www.vhv.rs/viewpic/TTJwmmw_frogger-arcade-graphic-frogger-frog-sprite-sheet-hd/
 link to "background.png": https://www.frankslaboratory.co.uk/downloads/Frogger/background_lvl2.png

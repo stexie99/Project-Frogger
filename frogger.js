@@ -61,6 +61,7 @@ class Frogger{
                     this.y -= hop
                     this.pressed=true
                     onLog=false
+                    console.log(this.y)
                 }
             }
           })
@@ -102,8 +103,8 @@ class Frogger{
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
         const g = ctx.fillStyle
-        ctx.fillStyle = 'green'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle = 'green'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(frog, 3, 25, 50, 45, this.x, this.y, this.width, this.height )
         ctx.fillStyle= g
     }
@@ -143,8 +144,8 @@ class Car{
     }
     draw(){
         const r = ctx.fillStyle
-        ctx.fillStyle='red'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle='red'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(car, 12, 482, 130, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle=r
     }
@@ -162,7 +163,7 @@ class Car{
     }
     //moves cars back on the canvas from the opposite side
     hit(){
-        if(this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
+        if(this.x<frogger.x&& frogger.x<this.x+this.width&&this.y+this.height>frogger.y&& frogger.y>this.y){
             const deathX= frogger.x
             const deathY= frogger.y
             ctx.drawImage(dead, 300, 320, 50, 50, deathX, deathY, frogger.width, frogger.height)
@@ -174,12 +175,12 @@ class Car{
 }
 let carArray=[]
 function createCar(){
-    carArray.push(new Car(0, 560, speed, 200, 100))
-    carArray.push(new Car(500,560, speed, 200, 100))
-    carArray.push(new Car(0, 460, speed*-1, 200, 100))
-    carArray.push(new Car(500, 460, speed*-1, 200, 100))
-    carArray.push(new Car(0, 360, speed*1.5, 200, 100))
-    carArray.push(new Car(500, 360, speed*1.5, 200, 100))
+    carArray.push(new Car(0, 550, speed, 200, 100))
+    carArray.push(new Car(500,550, speed, 200, 100))
+    carArray.push(new Car(0, 450, speed*-1, 200, 100))
+    carArray.push(new Car(500, 450, speed*-1, 200, 100))
+    carArray.push(new Car(0, 350, speed*1.5, 200, 100))
+    carArray.push(new Car(500, 350, speed*1.5, 200, 100))
 }
 
 function drawCar(){
@@ -206,8 +207,8 @@ class Log{
     }
     draw(){
         const b = ctx.fillStyle
-        ctx.fillStyle='blue'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle='blue'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(log, 385, 256, 190, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle = b
     }
