@@ -38,9 +38,9 @@ function logMousePosition(event) {
     const x = event.clientX;
     const y = event.clientY;
     console.log(`Mouse position: x=${x}, y=${y}`);
-  }
+}
 
-  document.addEventListener('click', logMousePosition);
+document.addEventListener('click', logMousePosition);
 // console log the location of my mouse click to help me determine the pixels
 
 
@@ -61,7 +61,7 @@ class Frogger{
                     this.y -= hop
                     this.pressed=true
                     onLog=false
-                    console.log(this.y)
+                    console.log(this.y+this.height)
                 }
             }
           })
@@ -163,7 +163,7 @@ class Car{
     }
     //moves cars back on the canvas from the opposite side
     hit(){
-        if(this.x<frogger.x&& frogger.x<this.x+this.width&&this.y+this.height>frogger.y&& frogger.y>this.y){
+        if(frogger.x<this.x+this.width&&this.y+this.height>frogger.y&&frogger.y+frogger.height>this.y&&frogger.x+frogger.width>this.x){
             const deathX= frogger.x
             const deathY= frogger.y
             ctx.drawImage(dead, 300, 320, 50, 50, deathX, deathY, frogger.width, frogger.height)
@@ -225,7 +225,7 @@ class Log{
         }
     }
     land(){
-        if(frogger.x>0&&frogger.x<gameCanvas.width-frogger.width&&this.x<=frogger.x&& frogger.x<=this.x+this.width&&this.y+this.height>=frogger.y&& frogger.y>=this.y){
+        if(frogger.x<this.x+this.width&&this.y+this.height>frogger.y&&frogger.y+frogger.height>this.y&&frogger.x+frogger.width>this.x){
             onLog= true
             frogger.x+=this.speed
         }
