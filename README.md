@@ -5,10 +5,8 @@ Features currently under the works:
 1. orientation of the sprites
 2. frog animation
 3. randomized car sprites
-4. extra live
+4. extra lives
 
-Known bugs:
-1. 
 
 link to "sprite.png": https://www.vhv.rs/viewpic/TTJwmmw_frogger-arcade-graphic-frogger-frog-sprite-sheet-hd/
 link to "background.png": https://www.frankslaboratory.co.uk/downloads/Frogger/background_lvl2.png
