@@ -15,7 +15,7 @@ function win(){
     if(frogger.y <=0){
         frogger.newLife()
         score+=1
-        speed = speed*1.25
+        speed = speed*1.15
         console.log(speed)
         logArray=[]
         carArray=[]
@@ -27,7 +27,7 @@ function win(){
 //car and log arrays are cleared, and new cars and logs are drawn with faster speed 
 
 function water(){
-    if(frogger.y>135&&frogger.y<340&&onLog===false){
+    if(frogger.y>135&&frogger.y<347&&onLog===false){
         lives-=1
         frogger.newLife()
     }
@@ -42,7 +42,6 @@ function logMousePosition(event) {
 
 document.addEventListener('click', logMousePosition);
 // console log the location of my mouse click to help me determine the pixels
-
 
 class Frogger{
     constructor(x, y, width, height){
@@ -105,8 +104,24 @@ class Frogger{
         const g = ctx.fillStyle
         // ctx.fillStyle = 'green'
         // ctx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.drawImage(frog, 3, 25, 50, 45, this.x, this.y, this.width, this.height )
+        // ctx.drawImage(frog, 59, 41, 51, 40, this.x, this.y, this.width, this.height) 
+        //up
+        // ctx.drawImage(frog, 0, 40, 57, 42, this.x, this.y, this.width, this.height) 
+        //up jump
+        // ctx.drawImage(frog, 0, 84, 40, 51, this.x, this.y, this.width, this.height) 
+        //left 
+        // ctx.drawImage(frog, 0, 138, 42, 57, this.x, this.y, this.width, this.height) 
+        //left jump
+        // ctx.drawImage(frog, 62, 140, 40, 51, this.x, this.y, this.width, this.height)
+        //right
+        // ctx.drawImage(frog, 60, 81, 42, 57, this.x, this.y, this.width, this.height)
+        //right jump
+        ctx.drawImage(frog, 0, 0, 51, 40, this.x, this.y, this.width, this.height)
+        //down
+        // ctx.drawImage(frog, 53, 0, 57, 42, this.x, this.y, this.width, this.height)
+        //down jump
         ctx.fillStyle= g
+        console.log("drawing")
     }
     newLife(){
         this.x=this.startX
@@ -115,8 +130,10 @@ class Frogger{
 }
 
 const frog = new Image()
-frog.src='assets/sprite.png'
+frog.src='assets/frogger.png'
 const frogger = new Frogger(375, 700, 50, 50)
+
+frogger.drawFrog()
 
 function startGame() {
     score= 0
@@ -140,7 +157,6 @@ class Car{
         this.speed = speed
         this.width= width
         this.height = height
-
     }
     draw(){
         const r = ctx.fillStyle
@@ -207,8 +223,8 @@ class Log{
     }
     draw(){
         const b = ctx.fillStyle
-        // ctx.fillStyle='blue'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillStyle='blue'
+        ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(log, 385, 256, 190, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle = b
     }
@@ -225,7 +241,7 @@ class Log{
         }
     }
     land(){
-        if(frogger.x<this.x+this.width&&this.y+this.height>frogger.y&&frogger.y+frogger.height>this.y&&frogger.x+frogger.width>this.x){
+        if(frogger.x+frogger.width<gameCanvas.width&& frogger.x>0&&frogger.x<this.x+this.width&&this.y+this.height>frogger.y&&frogger.y+frogger.height>this.y&&frogger.x+frogger.width>this.x){
             onLog= true
             frogger.x+=this.speed
         }
@@ -299,3 +315,4 @@ function animate() {
         winGame()
     } 
 }
+// animate()
