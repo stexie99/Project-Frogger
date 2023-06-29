@@ -103,7 +103,7 @@ class Frogger{
         const g = ctx.fillStyle
         // ctx.fillStyle = 'green'
         // ctx.fillRect(this.x, this.y, this.width, this.height)
-        // ctx.drawImage(frog, 59, 41, 51, 40, this.x, this.y, this.width, this.height) 
+        ctx.drawImage(frog, 59, 41, 51, 40, this.x, this.y, this.width, this.height) 
         //up
         // ctx.drawImage(frog, 0, 40, 57, 42, this.x, this.y, this.width, this.height) 
         //up jump
@@ -115,7 +115,7 @@ class Frogger{
         //right
         // ctx.drawImage(frog, 60, 81, 42, 57, this.x, this.y, this.width, this.height)
         //right jump
-        ctx.drawImage(frog, 0, 0, 51, 40, this.x, this.y, this.width, this.height)
+        // ctx.drawImage(frog, 0, 0, 51, 40, this.x, this.y, this.width, this.height)
         //down
         // ctx.drawImage(frog, 53, 0, 57, 42, this.x, this.y, this.width, this.height)
         //down jump

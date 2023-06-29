@@ -7,7 +7,7 @@ Features currently under the works:
 3. randomized car sprites
 4. adding extra lives players can collect
 5. adding a time limit
-known bugs:
+
 
 
 link to "sprite.png": https://www.vhv.rs/viewpic/TTJwmmw_frogger-arcade-graphic-frogger-frog-sprite-sheet-hd/
