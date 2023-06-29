@@ -96,7 +96,6 @@ class Frogger{
           })
           document.addEventListener('keyup', ()=>{
                 this.pressed = false
-
           })
     }
     //moved move function inside Frogger.js for better organization and visability
@@ -239,9 +238,13 @@ class Log{
                 this.x=gameCanvas.width
             }
         }
+        if(frogger.x>gameCanvas.width || frogger.x+frogger.width< 0){
+            frogger.newLife()
+            lives -=1
+        }
     }
     land(){
-        if(frogger.x+frogger.width<gameCanvas.width&& frogger.x>0&&frogger.x<this.x+this.width&&this.y+this.height>frogger.y&&frogger.y+frogger.height>this.y&&frogger.x+frogger.width>this.x){
+        if(frogger.x<this.x+this.width&&this.y+this.height>frogger.y&&frogger.y+frogger.height>this.y&&frogger.x+frogger.width>this.x){
             onLog= true
             frogger.x+=this.speed
         }
