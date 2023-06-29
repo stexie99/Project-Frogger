@@ -222,8 +222,8 @@ class Log{
     }
     draw(){
         const b = ctx.fillStyle
-        ctx.fillStyle='blue'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle='blue'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(log, 385, 256, 190, 70, this.x, this.y, this.width, this.height)
         ctx.fillStyle = b
     }
