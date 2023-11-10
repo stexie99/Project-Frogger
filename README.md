@@ -12,5 +12,7 @@ Features currently under the works:
 
 
 link to "sprite.png": https://www.vhv.rs/viewpic/TTJwmmw_frogger-arcade-graphic-frogger-frog-sprite-sheet-hd/
+
 link to "background.png": https://www.frankslaboratory.co.uk/downloads/Frogger/background_lvl2.png
+
 link to "water.png": https://www.frankslaboratory.co.uk/downloads/Frogger/background.png
