@@ -58,6 +58,7 @@ class Frogger{
             if (e.key === 'ArrowUp' || e.key == 'w') {
                 if(this.pressed=== false){
                     this.y -= hop
+                    ctx.drawImage(frog, 0, 40, 57, 42, this.x, this.y, this.width, this.height)
                     this.pressed=true
                     onLog=false
                     console.log(this.y+this.height)
@@ -100,9 +101,6 @@ class Frogger{
     }
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
-        const g = ctx.fillStyle
-        // ctx.fillStyle = 'green'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(frog, 59, 41, 51, 40, this.x, this.y, this.width, this.height) 
         //up
         // ctx.drawImage(frog, 0, 40, 57, 42, this.x, this.y, this.width, this.height) 
@@ -119,7 +117,6 @@ class Frogger{
         //down
         // ctx.drawImage(frog, 53, 0, 57, 42, this.x, this.y, this.width, this.height)
         //down jump
-        ctx.fillStyle= g
         console.log("drawing")
     }
     newLife(){
@@ -131,7 +128,6 @@ class Frogger{
 const frog = new Image()
 frog.src='assets/frogger.png'
 const frogger = new Frogger(375, 700, 50, 50)
-
 frogger.drawFrog()
 
 function startGame() {
@@ -147,8 +143,6 @@ function startGame() {
     console.log('game started!')
 }
     
-
-
 class Car{
     constructor(x, y, speed, width, height){
         this.x=x
@@ -158,11 +152,7 @@ class Car{
         this.height = height
     }
     draw(){
-        const r = ctx.fillStyle
-        // ctx.fillStyle='red'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(car, 12, 482, 130, 70, this.x, this.y, this.width, this.height)
-        ctx.fillStyle=r
     }
     update(){
         this.x += this.speed
@@ -188,7 +178,9 @@ class Car{
     }
     
 }
+
 let carArray=[]
+
 function createCar(){
     carArray.push(new Car(0, 550, speed, 200, 100))
     carArray.push(new Car(500,550, speed, 200, 100))
@@ -204,13 +196,11 @@ function drawCar(){
         carArray[i].update()
     }
 }
+
 const car= new Image()
 car.src='assets/sprite.png'
 const dead = new Image()
 dead.src='assets/sprite.png'
-
-
-
 
 class Log{
     constructor(x, y, speed, width, height){
@@ -278,6 +268,7 @@ function scoreBoard(){
     ctx.fillText(score, 375, 65)
     ctx.fillText(lives, 25, 65)
 }
+
 function winGame(){
     ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     ctx.fillStyle='orange'
@@ -286,6 +277,7 @@ function winGame(){
     ctx.fillText('YOU WIN', 290, 300)
     restart()
 }
+
 function lose(){
     ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     ctx.fillStyle='orange'
@@ -294,6 +286,7 @@ function lose(){
     ctx.fillText('You scored '+ score +' points', 180, 300)
     restart()
 }
+
 function restart(){
     let button=document.querySelector('#startButton')
     button.innerHTML='Restart'

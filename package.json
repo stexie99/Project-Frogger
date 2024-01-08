@@ -1,0 +1,27 @@
+{
+  "name": "froggers-replica",
+  "version": "1.0.0",
+  "description": "Milestone Project 1\r This is inspired by the classic 1981 game Frogger. To play this game, use the arrow keys or wasd to move the frog across the road and pond for 1 point. The player starts with 5 lives, if the player gets hit by a car, falls in water, or gets carried off screen by a log, they will lose a life.To make it across, avoid the cars and step on the logs. To win, score 5 points, but make sure your frog is healthy because the game is over when the number of lives falls under 0.",
+  "main": "frogger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node frogger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stexie99/Project-Frogger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stexie99/Project-Frogger/issues"
+  },
+  "homepage": "https://github.com/stexie99/Project-Frogger#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "tsc": "^2.0.4",
+    "typescript": "^5.2.2"
+  }
+}
