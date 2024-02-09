@@ -291,7 +291,7 @@ function restart(){
     let button=document.querySelector('#startButton')
     button.innerHTML='Restart'
     button.style.display = 'block'
-    button.addEventListener('click', startGame)
+    button.addEventListener('click', function(){window.location.reload()})
 }
 
 function animate() {
