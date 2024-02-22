@@ -16,7 +16,6 @@ function win(){
         frogger.newLife()
         score+=1
         speed = speed*1.15
-        console.log(speed)
         logArray=[]
         carArray=[]
         createCar()
@@ -75,7 +74,6 @@ class Frogger{
                     this.y += hop 
                     this.pressed=true
                     onLog=false
-                    // return this.direction
                 }
             }
           })
@@ -109,26 +107,21 @@ class Frogger{
         if(this.direction === 'up'){
             ctx.drawImage(frog, 59, 41, 51, 40, this.x, this.y, this.width, this.height)
         } 
-        //up
         // ctx.drawImage(frog, 0, 40, 57, 42, this.x, this.y, this.width, this.height) 
         //up jump
         if(this.direction === 'left'){
             ctx.drawImage(frog, 0, 84, 40, 51, this.x, this.y, this.width, this.height) 
         }
-        //left 
         // ctx.drawImage(frog, 0, 138, 42, 57, this.x, this.y, this.width, this.height) 
         //left jump
         if(this.direction === 'right'){
             ctx.drawImage(frog, 62, 140, 40, 51, this.x, this.y, this.width, this.height)
         }
-        //right
         // ctx.drawImage(frog, 60, 81, 42, 57, this.x, this.y, this.width, this.height)
         //right jump
         if(this.direction === 'down'){
             ctx.drawImage(frog, 0, 0, 51, 40, this.x, this.y, this.width, this.height)
         }
-        // ctx.drawImage(frog, 0, 0, 51, 40, this.x, this.y, this.width, this.height)
-        //down
         // ctx.drawImage(frog, 53, 0, 57, 42, this.x, this.y, this.width, this.height)
         //down jump
     }
@@ -142,7 +135,7 @@ const frog = new Image()
 frog.src='assets/frogger.png'
 const frogger = new Frogger(375, 700, 50, 50)
 
-
+//initiate values and calling animate function
 function startGame() {
     score= 0
     lives=5
@@ -153,7 +146,6 @@ function startGame() {
     createCar()
     animate()
     startButton.style.display = 'none'
-    console.log('game started!')
 }
     
 class Car{
@@ -304,7 +296,7 @@ function restart(){
     let button=document.querySelector('#startButton')
     button.innerHTML='Restart'
     button.style.display = 'block'
-    button.addEventListener('click', function(){window.location.reload()})
+    // button.addEventListener('click', function(){window.location.reload()})
 }
 
 function animate() {
