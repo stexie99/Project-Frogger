@@ -16,7 +16,6 @@ function win(){
         frogger.newLife()
         score+=1
         speed = speed*1.15
-        console.log(speed)
         logArray=[]
         carArray=[]
         createCar()
@@ -52,16 +51,17 @@ class Frogger{
         this.width= width
         this.height= height
         this.pressed= false
+        this.direction = 'up'
     }
     move(){
         document.addEventListener('keydown', (e)=> {
             if (e.key === 'ArrowUp' || e.key == 'w') {
+                this.direction = 'up'
                 if(this.pressed=== false){
                     this.y -= hop
                     ctx.drawImage(frog, 0, 40, 57, 42, this.x, this.y, this.width, this.height)
                     this.pressed=true
                     onLog=false
-                    console.log(this.y+this.height)
                 }
             }
           })
@@ -69,6 +69,7 @@ class Frogger{
           document.addEventListener('keydown', (e)=> {
             if (e.key === 'ArrowDown' || e.key =='s') {
                 // keeps frog from going out of the canvas
+                this.direction = 'down'
                 if(this.pressed=== false && this.y< gameCanvas.height-this.height){
                     this.y += hop 
                     this.pressed=true
@@ -79,6 +80,7 @@ class Frogger{
           
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowLeft' || e.key == 'a') {
+                this.direction = 'left'
                 if(this.pressed=== false && this.x > 0){
                     this.x -= hop
                     this.pressed=true
@@ -88,6 +90,7 @@ class Frogger{
           })
           document.addEventListener('keydown', (e)=> {
               if (e.key === 'ArrowRight'|| e.key =='d') {
+                this.direction = 'right'
                 if(this.pressed=== false && this.x < gameCanvas.width-this.width){
                     this.x += hop
                     this.pressed=true
@@ -101,23 +104,26 @@ class Frogger{
     }
     //moved move function inside Frogger.js for better organization and visability
     drawFrog(){
-        ctx.drawImage(frog, 59, 41, 51, 40, this.x, this.y, this.width, this.height) 
-        //up
+        if(this.direction === 'up'){
+            ctx.drawImage(frog, 59, 41, 51, 40, this.x, this.y, this.width, this.height)
+        } 
         // ctx.drawImage(frog, 0, 40, 57, 42, this.x, this.y, this.width, this.height) 
         //up jump
-        // ctx.drawImage(frog, 0, 84, 40, 51, this.x, this.y, this.width, this.height) 
-        //left 
+        if(this.direction === 'left'){
+            ctx.drawImage(frog, 0, 84, 40, 51, this.x, this.y, this.width, this.height) 
+        }
         // ctx.drawImage(frog, 0, 138, 42, 57, this.x, this.y, this.width, this.height) 
         //left jump
-        // ctx.drawImage(frog, 62, 140, 40, 51, this.x, this.y, this.width, this.height)
-        //right
+        if(this.direction === 'right'){
+            ctx.drawImage(frog, 62, 140, 40, 51, this.x, this.y, this.width, this.height)
+        }
         // ctx.drawImage(frog, 60, 81, 42, 57, this.x, this.y, this.width, this.height)
         //right jump
-        // ctx.drawImage(frog, 0, 0, 51, 40, this.x, this.y, this.width, this.height)
-        //down
+        if(this.direction === 'down'){
+            ctx.drawImage(frog, 0, 0, 51, 40, this.x, this.y, this.width, this.height)
+        }
         // ctx.drawImage(frog, 53, 0, 57, 42, this.x, this.y, this.width, this.height)
         //down jump
-        console.log("drawing")
     }
     newLife(){
         this.x=this.startX
@@ -128,8 +134,8 @@ class Frogger{
 const frog = new Image()
 frog.src='assets/frogger.png'
 const frogger = new Frogger(375, 700, 50, 50)
-frogger.drawFrog()
 
+//initiate values and calling animate function
 function startGame() {
     score= 0
     lives=5
@@ -140,7 +146,6 @@ function startGame() {
     createCar()
     animate()
     startButton.style.display = 'none'
-    console.log('game started!')
 }
     
 class Car{
@@ -291,7 +296,7 @@ function restart(){
     let button=document.querySelector('#startButton')
     button.innerHTML='Restart'
     button.style.display = 'block'
-    button.addEventListener('click', function(){window.location.reload()})
+    // button.addEventListener('click', function(){window.location.reload()})
 }
 
 function animate() {
