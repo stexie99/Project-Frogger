@@ -33,13 +33,13 @@ function water(){
 }
 //when in water and not on log, player loses a life and resets
 
-function logMousePosition(event) {
-    const x = event.clientX;
-    const y = event.clientY;
-    console.log(`Mouse position: x=${x}, y=${y}`);
-}
+// function logMousePosition(event) {
+//     const x = event.clientX;
+//     const y = event.clientY;
+//     console.log(`Mouse position: x=${x}, y=${y}`);
+// }
 
-document.addEventListener('click', logMousePosition);
+// document.addEventListener('click', logMousePosition);
 // console log the location of my mouse click to help me determine the pixels
 
 class Frogger{
@@ -157,7 +157,16 @@ class Car{
         this.height = height
     }
     draw(){
-        ctx.drawImage(car, 12, 482, 130, 70, this.x, this.y, this.width, this.height)
+        if (this.speed < 0) {
+            // Draw the car facing the opposite direction
+            ctx.save() // Save the current transformation state
+            ctx.scale(-1, 1); // Scale the context horizontally by -1 to flip horizontally
+            ctx.drawImage(car, 12, 482, 130, 70, -this.x - this.width, this.y, this.width, this.height)
+            ctx.restore() // Restore the saved transformation state
+        } else {
+            // Draw the car facing the original direction
+            ctx.drawImage(car, 12, 482, 130, 70, this.x, this.y, this.width, this.height);
+        }
     }
     update(){
         this.x += this.speed
@@ -216,11 +225,7 @@ class Log{
         this.height = height
     }
     draw(){
-        const b = ctx.fillStyle
-        // ctx.fillStyle='blue'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.drawImage(log, 385, 256, 190, 70, this.x, this.y, this.width, this.height)
-        ctx.fillStyle = b
     }
     update(){
         this.land()
